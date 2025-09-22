@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@fontsource/geist-sans";
+@import "@fontsource/geist-mono";
+
+
+
+@theme {
+    --color-airbnb: #ff385c;
+    --color-airbnb-dark: #d50027;
+}
+
+body {
+  font-family: "Geist Sans", sans-serif;
+}
+
+code, pre {
+  font-family: "Geist Mono", monospace;
+}
