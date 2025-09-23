@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import ReservationSideBar from '../components/properties/ReservationSideBar'
 import apiService from '../services/apiService'
+import { useAuth } from '../services/AuthContext'
 // import { getUserId } from '@/app/lib/actions'
 
 type Property = {
@@ -21,6 +22,8 @@ type Property = {
 
 
 const PropertyPage = () => {
+
+    const { userId } = useAuth()
     const { id } = useParams()
     const [property, setProperty] = useState<Property | null>(null)
     //   const userId = await getUserId()
@@ -78,7 +81,7 @@ const PropertyPage = () => {
 
                 <ReservationSideBar  
                     property={property}
-                    // userId={userId}
+                    userId={userId}
                 />
             </div>
         </main>
