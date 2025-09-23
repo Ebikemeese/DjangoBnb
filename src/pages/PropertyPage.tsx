@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import ReservationSideBar from '../components/properties/ReservationSideBar'
 import apiService from '../services/apiService'
 import { useAuth } from '../services/AuthContext'
+import { Link } from 'react-router-dom'
 // import { getUserId } from '@/app/lib/actions'
 
 type Property = {
@@ -17,6 +18,7 @@ type Property = {
     landlord: {
         username: string
         avatar_url: string
+        id: string
     }
 }
 
@@ -30,8 +32,8 @@ const PropertyPage = () => {
 
     useEffect(() => {
         const fetchProperty = async () => {
-        const data = await apiService.get(`properties/${id}`)
-        setProperty(data)
+            const data = await apiService.get(`properties/${id}`)
+            setProperty(data)
         }
 
         fetchProperty()
@@ -58,11 +60,11 @@ const PropertyPage = () => {
                     </span>
 
                     <hr className='text-gray-300'/>
-
                     <div className="py-3 flex items-center space-x-4">
-
+                    
+                    <Link to={`/landlords/${property.landlord.id}/`}>
                         <img
-                            src={ property.landlord.avatar_url }
+                            src={property.landlord.avatar_url}
                             alt='Host Profile picture'
                             width={50}
                             height={50}
@@ -70,6 +72,8 @@ const PropertyPage = () => {
                         />
                             
                         <p><strong className='text-gray-800'>{ property.landlord.username } is your host</strong></p>
+                    </Link>
+                    
                     </div>
 
                     <hr className='text-gray-300'/>
