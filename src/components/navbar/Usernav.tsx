@@ -7,6 +7,7 @@ import MenuLink from './MenuLink';
 import useLoginModal from '../../hooks/useLoginModal';
 import useSignUpModal from '../../hooks/useSignUpModal';
 import LogoutButton from './LogoutButton';
+import { useNavigate } from 'react-router-dom';
 
 interface UserNavProps {
   userId?: string | null
@@ -16,6 +17,7 @@ const UserNav: React.FC<UserNavProps> = ({
   userId
 }) => {
 
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const loginModal = useLoginModal()
   const SignUpModal = useSignUpModal()
@@ -37,9 +39,25 @@ const UserNav: React.FC<UserNavProps> = ({
               
               {
                 userId ? (
-                  
-                  <LogoutButton />
-                 
+                  <>
+                    <MenuLink 
+                      label="My Properties"
+                      onClick={() => {
+                        setIsOpen(false)
+                        navigate('/my_properties')
+                      }}
+                    />
+
+                    <MenuLink 
+                      label="My Reservations"
+                      onClick={() => {
+                        setIsOpen(false)
+                        navigate('/my_reservations')
+                      }}
+                    />
+
+                    <LogoutButton />
+                  </>
                 ) : (
                   <>
                     <MenuLink

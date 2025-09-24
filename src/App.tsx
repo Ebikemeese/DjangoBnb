@@ -20,7 +20,7 @@ function App() {
             <Route path="properties/:id" element={<PropertyPage />} />
             <Route path="landlords/:id" element={<LandLordPage />} />
             <Route path="my_properties" element={<MyPropertiesPage />} />
-            <Route path="my_reservation" element={<MyReservationPage />} />
+            <Route path="my_reservations" element={<MyReservationPage />} />
             <Route path="inbox" element={<InboxPage />} />
             <Route path="inbox/:id" element={<ConversationDetailPage />} />
 

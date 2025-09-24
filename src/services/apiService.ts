@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_PUBLIC_API_HOST
 
 async function refreshAccessToken(): Promise<boolean> {
   try {
-    const res = await fetch(`${BASE_URL}/auth/token/refresh/`, {
+    const res = await fetch(`${BASE_URL}auth/token/refresh/`, {
       method: "POST",
       credentials: "include", // sends refresh cookie
     });
