@@ -47,7 +47,7 @@ const LoginModal = () => {
             if (response.access) {
                 authService.setToken(response.access)
                 await userService.set(response.user.pk)
-                console.log(response)
+                // console.log(response)
                 setUserId(response.user.pk)
                 loginModal.close()
                 navigate('/')

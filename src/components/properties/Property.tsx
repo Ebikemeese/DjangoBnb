@@ -21,51 +21,53 @@ const Property: React.FC<PropertyListProps> = ({
 
   const [properties, setProperties] = useState<PropertyType[]>([])
 
-  const markFavourite = (id: string, is_favourite: boolean) => {
-    const updatedProperties = properties.map((property) => {
-      if (property.id === id) {
-        return { ...property, is_favourite };
-      }
-      return property;
-    });
-    setProperties(updatedProperties);
-    console.log(
-      is_favourite
-        ? "Added to Favourite Properties"
-        : "Removed from Favourite Properties"
-    );
-  };
+  
   
   useEffect(() => {
+  
+    const markFavourite = (id: string, is_favourite: boolean) => {
+      const updatedProperties = properties.map((property) => {
+        if (property.id === id) {
+          return { ...property, is_favourite };
+        }
+        return property;
+      });
+      setProperties(updatedProperties);
+      console.log(
+        is_favourite
+          ? "Added to Favourite Properties"
+          : "Removed from Favourite Properties"
+      );
+    };
 
     const getProperties = async () => {
       let url = 'properties/'
       if (landlord_id) {
 
         url += `?landlord_id=${landlord_id}`
-        console.log('Property landlord_id', landlord_id)
-        console.log("Future url", url)
         const tmpProperties = await apiService.get(url)
+        
         setProperties(tmpProperties.data.map((property: PropertyType) => {
           if (tmpProperties.favourites.includes(property.id)) {
             property.is_favourite = true
           } else {
             property.is_favourite = false
           }
-
+          // console.log("favourite property 1", property)
           return property;
         }))
 
       } else {
 
         const tmpProperties = await apiService.get(url)
+        console.log("Get properties request all", tmpProperties.data)
         setProperties(tmpProperties.data.map((property: PropertyType) => {
           if (tmpProperties.favourites.includes(property.id)) {
             property.is_favourite = true
           } else {
             property.is_favourite = false
           }
-
+          // console.log("favourite property 2", property)
           return property;
         }))
 

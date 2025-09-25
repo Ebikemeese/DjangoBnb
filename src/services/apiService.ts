@@ -28,12 +28,15 @@ async function refreshAccessToken(): Promise<boolean> {
 
 const apiService = {
     get: async function (url: string): Promise<any> {
+        let token = authService.getToken();
+
         try {
         const response = await fetch(`${import.meta.env.VITE_PUBLIC_API_HOST}${url}`, {
             method: 'GET',
             headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
             },
         });
 
