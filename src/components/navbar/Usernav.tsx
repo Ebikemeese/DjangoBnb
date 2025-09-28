@@ -56,6 +56,23 @@ const UserNav: React.FC<UserNavProps> = ({
                       }}
                     />
 
+                    <MenuLink 
+                      label="My Favourites"
+                      onClick={() => {
+                        setIsOpen(false)
+                        navigate('/my_favourites')
+                      }}
+                    />
+
+                    <MenuLink
+                      label="Inbox"
+                      onClick={() => {
+                        setIsOpen(false)
+                        navigate('/inbox')
+                      }}
+                    />
+
+
                     <LogoutButton />
                   </>
                 ) : (

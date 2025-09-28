@@ -144,3 +144,10 @@ const apiService = {
 
 export default apiService;
 
+// POST
+// https://airbnb-backend-sxb9.onrender.com/api/v1/auth/token/refresh/
+// [HTTP/3 401  393ms]
+
+	
+// detail	"No valid refresh token found."
+// code	"token_not_valid"

@@ -1,7 +1,34 @@
-
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 import CustomButton from '../forms/CustomButton'
+import type { MessageType } from '../../pages/ConversationDetailPage'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
-const ConversationDetail = () => {
+interface ConversationDetailProps {
+  conversation: MessageType[],
+  userId: string | null;
+  token: string | null;
+}
+
+const ConversationDetail: React.FC<ConversationDetailProps> = ({
+  conversation,
+  userId,
+  token,
+}) => {
+
+  const {id} = useParams<{id: string}>()
+  // const myUser = conversation.find((user) => user.id == userId)
+  // const otherUser = conversation.find((user) => user.id != userId)
+
+  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`wss://${import.meta.env.VITE_WEBSOCKET_API_HOST}/ws/${id}/?token=${token}`, {
+    share: false,
+    shouldReconnect: () => true,
+  })
+
+  useEffect(() => {
+    console.log("Connection state change", readyState)
+  }, [readyState])
+
   return (
     <>
       <div className='max-h-[380] overflow-auto flex flex-col space-y-4'>

@@ -8,6 +8,7 @@ import MyPropertiesPage from './pages/MyPropertiesPage'
 import MyReservationPage from "./pages/MyReservationPage";
 import InboxPage from "./pages/InboxPage";
 import ConversationDetailPage from './pages/ConversationDetailPage'
+import MyFavouritesPage from "./pages/MyFavouritesPage";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="my_reservations" element={<MyReservationPage />} />
             <Route path="inbox" element={<InboxPage />} />
             <Route path="inbox/:id" element={<ConversationDetailPage />} />
+            <Route path="my_favourites" element={<MyFavouritesPage />} />
 
           
           </Route>
