@@ -65,7 +65,7 @@ const UserNav: React.FC<UserNavProps> = ({
                     />
 
                     <MenuLink
-                      label="Inbox"
+                      label="My Chats"
                       onClick={() => {
                         setIsOpen(false)
                         navigate('/inbox')

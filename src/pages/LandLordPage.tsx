@@ -48,7 +48,10 @@ const LandLordPage = () => {
               
               {
                 userId != id && (
-                  <ContactButton />
+                  <ContactButton 
+                    userId={userId}
+                    landlord_id={id}
+                  />
                 )
               }
               

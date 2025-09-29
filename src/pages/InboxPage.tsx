@@ -2,6 +2,7 @@ import Conversation from '../components/inbox/Conversation'
 import { useEffect, useState } from 'react'
 import apiService from '../services/apiService'
 import { useAuth } from '../services/AuthContext'
+import type { MessageType } from './ConversationDetailPage'
 
 export type UserType = {
   id: string;
@@ -12,6 +13,7 @@ export type UserType = {
 export type ConversationType = {
   id: string;
   users: UserType[];
+  messages: MessageType[];
 }
 
 

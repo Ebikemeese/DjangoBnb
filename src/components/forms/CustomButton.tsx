@@ -1,11 +1,24 @@
-
+import type React from "react";
 import { BsFillSendArrowUpFill } from "react-icons/bs"
+interface CustomButtonProps {
+  onClick?: () => void;
+  disabled?: boolean;
+}
 
-const CustomButton = () => {
+
+
+const CustomButton: React.FC<CustomButtonProps> = ({
+  onClick,
+  disabled,
+}) => {
   return (
-    <div className='w-[50px] py-4 px-4 bg-gray-600 hover:bg-gray-700 text-white rounded-xl transition cursor-pointer'>
+    <button
+      disabled={disabled}
+      className={`px-4 py-2 rounded-xl ${disabled ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+      onClick={onClick}
+    >
         <BsFillSendArrowUpFill />
-    </div>
+    </button>
   )
 }
 
