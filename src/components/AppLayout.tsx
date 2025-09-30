@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from './navbar/Navbar'
 import LoginModal from './Modals/LoginModal'
 import SignUpModal from './Modals/SignUpModal'
+import SearchModal from "./Modals/SearchModal"
 import AddPropertyModal from './Modals/AddPropertyModal'
 
 const AppLayout: React.FC = () => {
@@ -19,6 +20,7 @@ const AppLayout: React.FC = () => {
       </div>
 
       <LoginModal />
+      <SearchModal />
       <SignUpModal />
       <AddPropertyModal />
     </>

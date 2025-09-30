@@ -68,7 +68,7 @@ const AddPropertyModal = () => {
             
             if (response.success) {
                 console.log('Property created successfully')
-                navigate('/')
+                navigate('/?added=True')
                 addPropertyModal.close()
             } else {
                 // console.log('An error occured while uploading property')

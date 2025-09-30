@@ -2,6 +2,9 @@
 import PropertyList from './PropertyList'
 import { useEffect, useRef, useState } from 'react'
 import apiService from '../../services/apiService'
+import useSearchModal from '../../hooks/useSearchModal'
+import { format } from 'date-fns'
+import { useSearchParams } from 'react-router-dom'
 
 export type PropertyType = {
   id: string;
@@ -22,6 +25,16 @@ const Property: React.FC<PropertyListProps> = ({
   favourites
 }) => {
 
+  const params = useSearchParams()
+  const searchModal = useSearchModal()
+  const country = searchModal.query.country
+  const numGuests = searchModal.query.guests
+  const numBathrooms = searchModal.query.bathrooms
+  const numBedrooms = searchModal.query.bedrooms
+  const checkInDate = searchModal.query.checkIn
+  const checkOutDate = searchModal.query.checkOut
+  const category = searchModal.query.category
+
   const [properties, setProperties] = useState<PropertyType[]>([])
   const getPropertiesRef = useRef<() => void>(() => {})
   
@@ -38,10 +51,48 @@ const Property: React.FC<PropertyListProps> = ({
         url += '?is_favourites=true'
 
       } else {
+        let urlQuery = ''
 
+        if (country) {
+          urlQuery += '&country=' + country
+        }
+
+        if (numGuests) {
+          urlQuery += '&numGuests=' + numGuests
+        }
+
+        if (numBedrooms) {
+          urlQuery += '&numBedrooms=' + numBedrooms
+        }
+
+        if (numBathrooms) {
+          urlQuery += '&numBathrooms=' + numBathrooms
+        }
+
+        if (category) {
+          urlQuery += '&category=' + category
+        }
+
+        if (checkInDate) {
+          urlQuery += '&checkin=' + format(checkInDate, 'yyyy-MM-dd')
+        }
+
+        if (checkOutDate) {
+          urlQuery += '&checkout=' + format(checkOutDate, 'yyyy-MM-dd')
+        }
+
+        if (urlQuery.length) {
+          console.log("Search query url", urlQuery)
+
+          urlQuery = '?' + urlQuery.substring(1)
+
+          url += urlQuery
+
+        }
       }
 
       const tmpProperties = await apiService.get(url)
+
       console.log("Get properties request all", tmpProperties.data)
       setProperties(tmpProperties.data.map((property: PropertyType) => {
         if (tmpProperties.favourites.includes(property.id)) {
@@ -58,7 +109,7 @@ const Property: React.FC<PropertyListProps> = ({
 
     getPropertiesRef.current = getProperties
     getProperties()
-  }, [landlord_id])
+  }, [landlord_id, category, searchModal.query, params])
 
   const markFavourite = async (id: string, is_favourite: boolean) => {
     const updatedProperties = properties.map((property) => {
@@ -76,6 +127,10 @@ const Property: React.FC<PropertyListProps> = ({
         : "Removed from Favourite Properties"
     );
   };
+
+  if (properties.length === 0) {
+    return <p className="text-center text-gray-500">No properties matched your search</p>
+  }
 
   return (
     <>
