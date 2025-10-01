@@ -8,12 +8,14 @@ export type UserType = {
   id: string;
   username: string;
   avatar_url: string;
+  last_login: string;
 }
 
 export type ConversationType = {
   id: string;
   users: UserType[];
   messages: MessageType[];
+  last_message: string;
 }
 
 

@@ -1,11 +1,10 @@
 import type React from "react";
 import { BsFillSendArrowUpFill } from "react-icons/bs"
+
 interface CustomButtonProps {
   onClick?: () => void;
   disabled?: boolean;
 }
-
-
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   onClick,

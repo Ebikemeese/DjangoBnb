@@ -52,6 +52,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
         sent_to: otherUser as UserType,
         created_by: myUser as UserType,
         conversationId: id as string,
+        created_at: new Date().toISOString()
       }
 
       setRealTimeMessages((realTimeMessages) => [...realTimeMessages, message])
@@ -106,6 +107,14 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     }
   }
 
+  useEffect(() => {
+    const textarea = document.querySelector('textarea');
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+  }, [newMessage]);
+
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-8 text-white rounded-t-xl bg-white shadow-md">
@@ -141,7 +150,19 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
               className={`w-[80%] py-4 px-6 rounded-xl ${message.created_by.username === myUser?.username ? 'ml-[20%] bg-blue-200' : 'bg-gray-200'}`}
             >
               <p className="font-bold text-gray-500">{message.created_by.username}</p>
-            <p>{message.body}</p>
+              <p>{message.body}</p>
+
+              <p className="text-xs text-gray-400 mt-1">
+                {new Date(message.created_at).toLocaleString('en-US', {
+                  weekday: 'short',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true
+                })}
+              </p>
             </div>
           ))
         }
@@ -153,6 +174,18 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
             >
               <p className="font-bold text-gray-500">{message.username}</p>
             <p>{message.body}</p>
+            
+            <p className="text-xs text-gray-400 mt-1">
+                {new Date(message.created_at).toLocaleString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true
+                })}
+              </p>
             </div>
           ))
         }
@@ -160,13 +193,14 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
       </div> 
       
 
-      <div className="mt-4 px-4 py-4 flex border border-gray-300 space-x-4 rounded-xl">
-        <input 
-          type="text"
+      <div className="relative px-4 py-4 flex items-start space-x-4 border border-gray-300 rounded-xl min-h-[60px]">
+        <textarea
+          // type="text"
+          rows={1}
           placeholder='Type your message...'
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className='w-full p-2 bg-gray-200 rounded-xl'
+          className='w-full p-2 bg-gray-200 resize-none overflow-y-auto rounded-xl max-h-40'
         />
 
         <CustomButton 

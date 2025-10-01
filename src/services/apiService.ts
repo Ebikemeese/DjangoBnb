@@ -1,29 +1,12 @@
-// import { getAccessToken } from "../lib/actions"
 import { authService } from "./auth"
-
 
 const BASE_URL = import.meta.env.VITE_PUBLIC_API_HOST
 
-async function refreshAccessToken(): Promise<boolean> {
-  try {
-    const res = await fetch(`${BASE_URL}auth/token/refresh/`, {
-      method: "POST",
-      credentials: "include", // sends refresh cookie
-    });
 
-    if (!res.ok) return false;
-
-    const data = await res.json();
-    if (data.access) {
-      authService.setToken(data.access);
-      return true;
-    }
-    return false;
-  } catch (err) {
-    console.error("Failed to refresh token:", err);
+function handleUnauthorized() {
     authService.clear();
-    return false;
-  }
+    localStorage.removeItem("userId")
+    window.location.href = "/"
 }
 
 const apiService = {
@@ -39,6 +22,11 @@ const apiService = {
             ...(token ? { 'Authorization': `Bearer ${token}` } : ''),
             },
         });
+
+        if (response.status === 401) {
+            handleUnauthorized();
+            return null;
+        }
 
         const contentType = response.headers.get('content-type');
         if (!response.ok || !contentType?.includes('application/json')) {
@@ -89,19 +77,8 @@ const apiService = {
         });
 
         if (response.status === 401) {
-            const refreshed = await refreshAccessToken();
-            if (refreshed) {
-                token = authService.getToken();
-                response = await fetch(`${BASE_URL}${url}`, {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-                    }
-                });
-            }
+            handleUnauthorized();
+            return null;
         }
 
         return response.json();
@@ -124,18 +101,8 @@ const apiService = {
         });
 
         if (response.status === 401) {
-            const refreshed = await refreshAccessToken();
-            if (refreshed) {
-                token = authService.getToken();
-                response = await fetch(`${BASE_URL}${url}`, {
-                    method: 'POST',
-                    body: data,
-                    credentials: 'include',
-                    headers: {
-                        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-                    },
-                });
-            }
+            handleUnauthorized();
+            return null;
         }
 
         return response.json();
@@ -143,11 +110,3 @@ const apiService = {
 }
 
 export default apiService;
-
-// POST
-// https://airbnb-backend-sxb9.onrender.com/api/v1/auth/token/refresh/
-// [HTTP/3 401  393ms]
-
-	
-// detail	"No valid refresh token found."
-// code	"token_not_valid"

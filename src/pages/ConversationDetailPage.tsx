@@ -13,6 +13,7 @@ export type MessageType = {
   conversationId: string;
   sent_to: UserType;
   created_by: UserType;
+  created_at: string;
 }
 
 
