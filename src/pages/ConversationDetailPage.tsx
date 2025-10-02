@@ -23,11 +23,10 @@ const ConversationPage = () => {
   const { userId } = useAuth()
   const [conversation, setConversation] = useState<ConversationType | null>(null)
   const [token, setToken] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getConversations = async () => {
-      setLoading(true);
+      
       try {
         const tmpConversations = await apiService.getWithToken(`chats/${id}/`);
         const fullConversation = {
@@ -38,9 +37,7 @@ const ConversationPage = () => {
         console.log("Conversation chats", tmpConversations)
       } catch (error) {
         console.error(error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     
     getConversations();

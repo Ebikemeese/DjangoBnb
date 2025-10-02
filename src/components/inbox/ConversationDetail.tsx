@@ -1,4 +1,4 @@
-import useWebSocket, { ReadyState } from 'react-use-websocket'
+import useWebSocket from 'react-use-websocket'
 import CustomButton from '../forms/CustomButton'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'

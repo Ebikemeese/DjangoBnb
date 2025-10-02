@@ -1,5 +1,5 @@
 import countries from 'world-countries'
-import React from 'react'
+
 
 const formattedCountries = countries.map((country) => ({
     value: country.cca2,
