@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import apiService from '../services/apiService'
 import { useAuth } from '../services/AuthContext'
 import type { MessageType } from './ConversationDetailPage'
+import useWebSocket from 'react-use-websocket'
+import { authService } from '../services/auth'
 
 export type UserType = {
   id: string;
@@ -16,14 +18,49 @@ export type ConversationType = {
   users: UserType[];
   messages: MessageType[];
   last_message: string;
+  unread_count: number;
 }
 
 
 const InboxPage = () => {
 
   const {userId } = useAuth()
+  const token = authService.getToken()
   const [conversations, setConversations] = useState<ConversationType[]>([])
   const [loading, setLoading] = useState(true);
+
+  const { lastJsonMessage, readyState } = useWebSocket(`wss://${import.meta.env.VITE_WEBSOCKET_API_HOST}/ws/user_${userId}/?token=${token}`, {
+    share: true,
+    shouldReconnect: () => true,
+    onOpen: () => console.log("WebSocket connection opened"),
+    onClose: () => console.log("WebSocket connection closed"),
+    onError: (event) => console.error("WebSocket error:", event),
+  });
+
+  useEffect(() => {
+    console.log("WebSocket readyState:", readyState);
+  }, [readyState]);
+
+  useEffect(() => {
+    console.log("WebSocket message received:", lastJsonMessage);
+    
+    if (
+      lastJsonMessage &&
+      'unread_count' in lastJsonMessage &&
+      'recipient_id' in lastJsonMessage &&
+      'conversation_id' in lastJsonMessage
+    ) {
+      if (lastJsonMessage.recipient_id === userId) {
+        setConversations(prev =>
+          prev.map(conv =>
+            conv.id === lastJsonMessage.conversation_id
+              ? { ...conv, unread_count: lastJsonMessage.unread_count }
+              : conv
+          )
+        );
+      }
+    }
+  }, [lastJsonMessage]);
 
   useEffect(() => {
     const getConversations = async () => {

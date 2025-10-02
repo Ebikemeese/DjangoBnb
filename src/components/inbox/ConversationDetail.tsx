@@ -9,6 +9,8 @@ import type { UserType } from '../../pages/InboxPage'
 import { Link } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa6'
 import UserNav from '../navbar/Usernav'
+import TypingIndicator from './TypingIndicator'
+import { useLayoutEffect } from 'react'
 
 
 interface ConversationDetailProps {
@@ -26,6 +28,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
   messages
 }) => {
 
+  const [isTyping, setIsTyping] = useState(false)
   const messagesDiv = useRef(null)
   const [newMessage, setNewMessage] = useState('')
   const {id} = useParams<{id: string}>()
@@ -43,8 +46,23 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     console.log("Connection state change", readyState)
   }, [readyState])
 
+  useLayoutEffect(() => {
+    if (messagesDiv.current) {
+      (messagesDiv.current as HTMLDivElement).scrollTop = (messagesDiv.current as HTMLDivElement).scrollHeight;
+    }
+  }, [messages.length, realTimeMessages.length]);
+
+  // const scrollToButtom = () => {
+    // if (messagesDiv.current) {
+      // (messagesDiv.current as HTMLDivElement).scrollTop = (messagesDiv.current as HTMLDivElement).scrollHeight;
+    // }
+  // }
+
   useEffect(() => {
-    if (lastJsonMessage && typeof lastJsonMessage === 'object' && 'username' in lastJsonMessage && 'body' in lastJsonMessage) {
+    if (!lastJsonMessage || typeof lastJsonMessage !== 'object') return;
+
+    if ('username' in lastJsonMessage && 'body' in lastJsonMessage) {
+      // Handle incoming message
       const message: MessageType = {
         id: '',
         username: lastJsonMessage.username as string,
@@ -53,13 +71,23 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
         created_by: myUser as UserType,
         conversationId: id as string,
         created_at: new Date().toISOString()
-      }
+      };
 
-      setRealTimeMessages((realTimeMessages) => [...realTimeMessages, message])
+      setRealTimeMessages((realTimeMessages) => [...realTimeMessages, message]);
+
+      sendJsonMessage({
+        action: 'mark_as_read',
+        data: { conversation_id: id }
+      });
     }
 
-    scrollToButtom()
-  }, [lastJsonMessage])
+    if (lastJsonMessage?.typing === true && lastJsonMessage?.username === otherUser?.username) {
+      setIsTyping(true);
+
+      // Auto-clear after 3 seconds
+      setTimeout(() => setIsTyping(false), 3000);
+    }
+  }, [lastJsonMessage]);
 
   const sendMessage = async () => {
     if (
@@ -90,7 +118,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     });
 
     setNewMessage('');
-    setTimeout(scrollToButtom, 50);
+   
   };
 
   console.log("Sending message:", {
@@ -99,13 +127,6 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
     sent_to_id: otherUser?.id,
     conversation_id: id
   });
-
-
-  const scrollToButtom = () => {
-    if (messagesDiv.current) {
-      (messagesDiv.current as HTMLDivElement).scrollTop = (messagesDiv.current as HTMLDivElement).scrollHeight;
-    }
-  }
 
   useEffect(() => {
     const textarea = document.querySelector('textarea');
@@ -124,7 +145,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
             <FaArrowLeft />
           </Link>
           <img
-            src={otherUser?.avatar_url}
+            src={otherUser?.avatar_url ? otherUser.avatar_url : '/pic.jpg'}
             width={40}
             height={40}
             className="rounded-full"
@@ -177,9 +198,9 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
             
             <p className="text-xs text-gray-400 mt-1">
                 {new Date(message.created_at).toLocaleString('en-US', {
-                  weekday: 'long',
+                  weekday: 'short',
                   year: 'numeric',
-                  month: 'long',
+                  month: 'short',
                   day: 'numeric',
                   hour: 'numeric',
                   minute: '2-digit',
@@ -190,8 +211,9 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
           ))
         }
 
+        
       </div> 
-      
+      {isTyping && <TypingIndicator />}
 
       <div className="relative px-4 py-4 flex items-start space-x-4 border border-gray-300 rounded-xl min-h-[60px]">
         <textarea
@@ -199,7 +221,17 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
           rows={1}
           placeholder='Type your message...'
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          onChange={(e) => {
+            setNewMessage(e.target.value);
+            
+            sendJsonMessage({
+              action: 'typing',
+              data: {
+                conversation_id: id,
+                username: myUser?.username
+              }
+            })
+          }}
           className='w-full p-2 bg-gray-200 resize-none overflow-y-auto rounded-xl max-h-40'
         />
 

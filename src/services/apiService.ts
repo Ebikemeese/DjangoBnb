@@ -42,7 +42,7 @@ const apiService = {
     },
 
     post: async function(url: string, data: any): Promise<any> {
-        console.log('post', url, data)
+        // console.log('post', url, data)
 
         return fetch(`${import.meta.env.VITE_PUBLIC_API_HOST}${url}`, {
             method: 'POST',

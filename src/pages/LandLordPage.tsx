@@ -37,7 +37,7 @@ const LandLordPage = () => {
           <aside className="col-span-1 mb-4">
             <div className="flex flex-col items-center p-6 rounded-xl border-gray-300 shadow-xl">
               <img 
-                src={landlord.avatar_url}
+                src={landlord?.avatar_url ? landlord.avatar_url : '/pic.jpg'}
                 alt='Landlord profile picture'
                 width={200}
                 height={200}
