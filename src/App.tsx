@@ -14,7 +14,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/DjangoBnb">
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Homepage />} />

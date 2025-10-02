@@ -129,7 +129,7 @@ const Property: React.FC<PropertyListProps> = ({
   };
 
   if (properties.length === 0) {
-    return <p className="text-center text-gray-500">No properties matched your search</p>
+    return <p className="text-center text-gray-500">Loading properties...</p>
   }
 
   return (

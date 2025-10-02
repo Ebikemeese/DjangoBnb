@@ -1,13 +1,17 @@
 {
   "name": "airbnb-type",
+  "homepage": "https://ebikemeese.github.io/DjangoBnb/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "postbuild": "copy dist\\index.html dist\\404.html",
     "lint": "eslint .",
     "preview": "vite preview"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fontsource/geist-mono": "^5.2.7",
