@@ -30,7 +30,7 @@ const category = () => {
     }
 
     return (
-        <div className="pt-3 cursor-pointer pb-6 flex flex-row items-center justify-between space-x-12">
+        <div className="cursor-pointer pt-6 pb-6 flex flex-row items-center justify-between space-x-12">
             <div 
                 onClick={() => _setCategory('')} 
                 className={`pb-4 flex flex-col items-center space-y-2 ${category === '' ? 'border-gray-200 opacity-100 border-b-4' : 'border-b-2 border-white hover:border-gray-200 opacity-60 hover:opacity-100'}`}

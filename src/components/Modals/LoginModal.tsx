@@ -6,7 +6,7 @@ import useLoginModal from '../../hooks/useLoginModal'
 import { useNavigate } from 'react-router-dom'
 import apiService from '../../services/apiService'
 import { useAuth } from "../../services/AuthContext"
-// import { handleLogin } from '@/app/lib/actions'
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 const LoginModal = () => {
 
@@ -16,6 +16,11 @@ const LoginModal = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState<string[]>([])
+    const [showPassword, setShowPassword] = useState(false)
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev)
+    }
 
     const submitLogin = async () => {
         setErrors([])
@@ -95,14 +100,25 @@ const LoginModal = () => {
                 className='w-full h-[54px] border border-gray-300 px-4 rounded-xl' 
                 placeholder='Enter Email'
             />
+            
+            <div className="relative w-full  border border-gray-300 rounded-xl">
+                <input 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} 
+                    type={showPassword ? 'text' : 'password'} 
+                    className='h-[54px] px-4 focus:outline-0' 
+                    placeholder='Enter Password'
+                />
 
-            <input 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} 
-                type="password" 
-                className='w-full h-[54px] border border-gray-300 px-4 rounded-xl' 
-                placeholder='Enter Password'
-            />
+                <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute right-2 top-4.5 text-gray"
+                >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            </div>
+            
             
             <button 
                 className='cursor-pointer py-4 px-6 text-center bg-airbnb transition text-white rounded-xl hover:bg-airbnb-dark'

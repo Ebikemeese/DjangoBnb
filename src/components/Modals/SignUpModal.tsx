@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import useSignUpModal from '../../hooks/useSignUpModal' 
 import apiService from '../../services/apiService' 
 import { authService, userService } from '../../services/auth' 
-// import { handleLogin } from '@/app/lib/actions' 
+import { FaEye, FaEyeSlash } from "react-icons/fa" 
 
 
 const SignUpModal = () => { const { setUserId } = useAuth() 
@@ -17,7 +17,19 @@ const SignUpModal = () => { const { setUserId } = useAuth()
     const [password1, setPassword1] = useState('') 
     const [password2, setPassword2] = useState('') 
     const [errors, setErrors] = useState<string[]>([]) 
-    const submitSignUp = async () => { setErrors([]) 
+    
+    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword2, setShowPassword2] = useState(false)
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev)
+    }
+
+    const togglePasswordVisibility2 = () => {
+        setShowPassword2((prev) => !prev)
+    }
+
+    const submitSignUp = async () => { setErrors([])
 
         const validationErrors: string[] = []; 
 
@@ -99,21 +111,41 @@ const SignUpModal = () => { const { setUserId } = useAuth()
                 placeholder='Enter Email' 
             /> 
             
-            <input 
-                value={password1} 
-                onChange={(e) => setPassword1(e.target.value)}
-                type="password" 
-                className='w-full h-[54px] border border-gray-300 px-4 rounded-xl' 
-                placeholder='Enter Password' 
-            /> 
+            <div className="relative w-full  border border-gray-300 rounded-xl">
+                <input 
+                    value={password1} 
+                    onChange={(e) => setPassword1(e.target.value)}
+                    type={showPassword ? 'text' : 'password'} 
+                    className='h-[54px] px-4 focus:outline-0' 
+                    placeholder='Enter Password' 
+                /> 
 
-            <input 
-                value={password2} 
-                onChange={(e) => setPassword2(e.target.value)} 
-                type="password" 
-                className='w-full h-[54px] border border-gray-300 px-4 rounded-xl' 
-                placeholder='Confirm Password' 
-            /> 
+                <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute right-2 top-4.5 text-gray"
+                >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            </div>
+
+            <div className="relative w-full  border border-gray-300 rounded-xl">
+                <input 
+                    value={password1} 
+                    onChange={(e) => setPassword2(e.target.value)}
+                    type={showPassword2 ? 'text' : 'password'} 
+                    className='h-[54px] px-4 focus:outline-0' 
+                    placeholder='Enter Password' 
+                /> 
+
+                <button
+                    type="button"
+                    onClick={togglePasswordVisibility2}
+                    className="absolute right-2 top-4.5 text-gray"
+                >
+                    {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            </div>
             
             <button 
                 className='cursor-pointer py-4 px-6 text-center bg-airbnb transition text-white rounded-xl hover:bg-airbnb-dark' 
