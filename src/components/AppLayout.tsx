@@ -10,15 +10,15 @@ import Footer from "./navbar/Footer";
 
 const AppLayout: React.FC = () => {
   return (
-    <>
+    <div className='min-h-screen flex flex-col'>
       <Helmet>
         <html lang="en" />
       </Helmet>
 
       <Navbar />
-      <div className="pt-28">
+      <main className="flex-grow pt-28">
         <Outlet />
-      </div>
+      </main>
 
       <LoginModal />
       <SearchModal />
@@ -26,7 +26,7 @@ const AppLayout: React.FC = () => {
       <AddPropertyModal />
 
       <Footer />
-    </>
+    </div>
   );
 };
 
