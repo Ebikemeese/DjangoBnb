@@ -9,6 +9,7 @@ import MyReservationPage from "./pages/MyReservationPage";
 import InboxPage from "./pages/InboxPage";
 import ConversationDetailPage from './pages/ConversationDetailPage'
 import MyFavouritesPage from "./pages/MyFavouritesPage";
+import NotFoundPage from './pages/NotFoundPage'
 import * as Sentry from '@sentry/react';
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
             <Route path="inbox" element={<InboxPage />} />
             <Route path="inbox/:id" element={<ConversationDetailPage />} />
             <Route path="my_favourites" element={<MyFavouritesPage />} />
-
+            <Route path="*" element={<NotFoundPage />} />
           
           </Route>
         </Routes>
