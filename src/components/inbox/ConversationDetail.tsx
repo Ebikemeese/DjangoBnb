@@ -145,7 +145,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
             <FaArrowLeft />
           </Link>
           <img
-            src={otherUser?.avatar_url ? otherUser.avatar_url : '/pic.jpg'}
+            src={otherUser?.avatar_url ? otherUser.avatar_url : '/DjangoBnb/pic.jpg'}
             width={40}
             height={40}
             className="rounded-full"

@@ -9,6 +9,7 @@ import MyReservationPage from "./pages/MyReservationPage";
 import InboxPage from "./pages/InboxPage";
 import ConversationDetailPage from './pages/ConversationDetailPage'
 import MyFavouritesPage from "./pages/MyFavouritesPage";
+import * as Sentry from '@sentry/react';
 
 function App() {
 
@@ -34,4 +35,4 @@ function App() {
   )
 }
 
-export default App
+export default Sentry.withProfiler(App)

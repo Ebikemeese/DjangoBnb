@@ -22,7 +22,7 @@ const Conversation: React.FC<ConversationProps> = ({
           {/* Left: Avatar and user info */}
           <div className='flex items-center'>
             <img
-              src={otherUser?.avatar_url ? otherUser.avatar_url : '/pic.jpg'}
+              src={otherUser?.avatar_url ? otherUser.avatar_url : '/DjangoBnb/pic.jpg'}
               width={60}
               height={40}
               className="rounded-full"

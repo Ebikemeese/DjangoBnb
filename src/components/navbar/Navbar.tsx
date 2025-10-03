@@ -25,7 +25,7 @@ const Navbar = () => {
             <div className="flex justify-between items-center">
                 <Link to="/">
                     <img
-                        src='/airbnb.png'
+                        src='/DjangoBnb/airbnb.png'
                         alt='Airbnb logo'
                         width={160}
                         height={34}

@@ -64,7 +64,7 @@ const PropertyPage = () => {
                     
                     <Link to={`/landlords/${property.landlord.id}/`}>
                         <img
-                            src={property?.landlord?.avatar_url ? property.landlord.avatar_url : '/pic.jpg'}
+                            src={property?.landlord?.avatar_url ? property.landlord.avatar_url : '/DjangoBnb/pic.jpg'}
                             alt='Host Profile picture'
                             width={50}
                             height={50}

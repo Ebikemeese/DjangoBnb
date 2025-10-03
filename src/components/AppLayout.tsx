@@ -6,6 +6,7 @@ import LoginModal from './Modals/LoginModal'
 import SignUpModal from './Modals/SignUpModal'
 import SearchModal from "./Modals/SearchModal"
 import AddPropertyModal from './Modals/AddPropertyModal'
+import Footer from "./navbar/Footer";
 
 const AppLayout: React.FC = () => {
   return (
@@ -23,6 +24,8 @@ const AppLayout: React.FC = () => {
       <SearchModal />
       <SignUpModal />
       <AddPropertyModal />
+
+      <Footer />
     </>
   );
 };
