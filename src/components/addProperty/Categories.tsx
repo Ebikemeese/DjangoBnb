@@ -3,7 +3,6 @@ import { TbBeachOff } from "react-icons/tb"
 import { GiVillage } from "react-icons/gi"
 import { MdCabin } from "react-icons/md"
 import { GiHut } from "react-icons/gi"
-import { GiValley } from "react-icons/gi"
 
 interface CategoriesProps {
     dataCategory: string;
@@ -57,15 +56,6 @@ const Categories:React.FC<CategoriesProps> = ({
                     <span className="text-xs">Huts</span>
                 </div>
 
-                <div 
-                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 
-                                ${dataCategory == 'Valleys' ? 'border-gray-800' : 'border-white'} 
-                                hover:border-gray-200 opacity-60 hover:opacity-100`}
-                    onClick={() => setCategory('Valleys')}
-                >
-                    <GiValley/>
-                    <span className="text-xs">Valleys</span>
-                </div>
             </div>
             
         </>

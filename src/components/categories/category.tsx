@@ -3,7 +3,6 @@ import { TbBeachOff } from "react-icons/tb"
 import { GiVillage } from "react-icons/gi"
 import { MdAllInclusive, MdCabin } from "react-icons/md"
 import { GiHut } from "react-icons/gi"
-import { GiValley } from "react-icons/gi"
 import { useState } from "react"
 import useSearchModal, { type SearchQuery} from "../../hooks/useSearchModal"
 
@@ -72,13 +71,7 @@ const category = () => {
                 <span className="text-xs">Huts</span>
             </div>
 
-            <div 
-                onClick={() => _setCategory('Valleys')} 
-                className={`pb-4 flex flex-col items-center space-y-2 ${category === 'Valleys' ? 'border-gray-200 opacity-100 border-b-4' : 'border-b-2 border-white hover:border-gray-200 opacity-60 hover:opacity-100'}`}
-            >
-                <GiValley/>
-                <span className="text-xs">Valleys</span>
-            </div>
+
         </div>
     )
 }
