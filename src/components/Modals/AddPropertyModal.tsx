@@ -63,11 +63,11 @@ const AddPropertyModal = () => {
             formData.append('bathrooms', dataBathrooms)
             formData.append('country_code', dataCountry.value)
 
-            console.log("FormData", formData)
+            // console.log("FormData", formData)
             const response = await apiService.postWithToken('properties/create/', formData)
             
             if (response.success) {
-                console.log('Property created successfully')
+                // console.log('Property created successfully')
                 navigate('/?added=True')
                 addPropertyModal.close()
             } else {

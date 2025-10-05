@@ -121,12 +121,12 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
    
   };
 
-  console.log("Sending message:", {
-    body: newMessage,
-    username: myUser?.username,
-    sent_to_id: otherUser?.id,
-    conversation_id: id
-  });
+  // console.log("Sending message:", {
+    // body: newMessage,
+    // username: myUser?.username,
+    // sent_to_id: otherUser?.id,
+    // conversation_id: id
+  // });
 
   useEffect(() => {
     const textarea = document.querySelector('textarea');

@@ -34,7 +34,7 @@ const ConversationPage = () => {
           messages: tmpConversations.messages || [],
         };
         setConversation(fullConversation);
-        console.log("Conversation chats", tmpConversations)
+        // console.log("Conversation chats", tmpConversations)
       } catch (error) {
         console.error(error);
       } 

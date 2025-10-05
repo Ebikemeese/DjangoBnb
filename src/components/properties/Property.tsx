@@ -82,7 +82,7 @@ const Property: React.FC<PropertyListProps> = ({
         }
 
         if (urlQuery.length) {
-          console.log("Search query url", urlQuery)
+          // console.log("Search query url", urlQuery)
 
           urlQuery = '?' + urlQuery.substring(1)
 
@@ -93,7 +93,7 @@ const Property: React.FC<PropertyListProps> = ({
 
       const tmpProperties = await apiService.get(url)
 
-      console.log("Get properties request all", tmpProperties.data)
+      // console.log("Get properties request all", tmpProperties.data)
       setProperties(tmpProperties.data.map((property: PropertyType) => {
         if (tmpProperties.favourites.includes(property.id)) {
           property.is_favourite = true
@@ -121,11 +121,11 @@ const Property: React.FC<PropertyListProps> = ({
     });
     setProperties(updatedProperties);
     getPropertiesRef.current();
-    console.log(
-      is_favourite
-        ? "Added to Favourite Properties"
-        : "Removed from Favourite Properties"
-    );
+    // console.log(
+    //   is_favourite
+    //     ? "Added to Favourite Properties"
+    //     : "Removed from Favourite Properties"
+    // );
   };
 
   if (properties.length === 0) {

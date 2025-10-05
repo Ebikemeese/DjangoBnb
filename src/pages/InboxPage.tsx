@@ -32,9 +32,9 @@ const InboxPage = () => {
   const { lastJsonMessage, readyState } = useWebSocket(`wss://${import.meta.env.VITE_WEBSOCKET_API_HOST}/ws/user_${userId}/?token=${token}`, {
     share: true,
     shouldReconnect: () => true,
-    onOpen: () => console.log("WebSocket connection opened"),
-    onClose: () => console.log("WebSocket connection closed"),
-    onError: (event) => console.error("WebSocket error:", event),
+    // onOpen: () => console.log("WebSocket connection opened"),
+    // onClose: () => console.log("WebSocket connection closed"),
+    // onError: (event) => console.error("WebSocket error:", event),
   });
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const InboxPage = () => {
   }, [readyState]);
 
   useEffect(() => {
-    console.log("WebSocket message received:", lastJsonMessage);
+    // console.log("WebSocket message received:", lastJsonMessage);
     
     if (
       lastJsonMessage &&
@@ -68,7 +68,7 @@ const InboxPage = () => {
       try {
         const tmpConversations = await apiService.getWithToken('chats/');
         setConversations(Array.isArray(tmpConversations) ? tmpConversations : []);
-        console.log("Conversations", tmpConversations)
+        // console.log("Conversations", tmpConversations)
       } catch (error) {
         console.error(error);
         setConversations([]);

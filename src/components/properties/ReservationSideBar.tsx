@@ -58,12 +58,12 @@ const ReservationSideBar: React.FC<ReservationSideBarProps> = ({
                 )
 
                 if (response.message === 'success') {
-                    console.log("Property booked successfully")
+                    // console.log("Property booked successfully")
                     
                     loginModal.close()
 
                 } else {
-                    console.log("Something went wrong")
+                    // console.log("Something went wrong")
                 }
 
             }
