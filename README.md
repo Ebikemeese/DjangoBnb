@@ -1,69 +1,52 @@
-# React + TypeScript + Vite
+# 🏡 DjangoBnb – An Airbnb Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**DjangoBnb** is a powerful, modern **Airbnb clone** built with **Django**, **Django REST Framework**, **Daphne**, and **React (TypeScript)**.  
+It enables users to **search, book, chat, and manage** properties in real time — complete with WhatsApp-style chat, live status updates, and robust monitoring via **Sentry** 🚀  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+### 🧠 Backend
+- 🐍 **Django** – backend framework  
+- ⚙️ **Django REST Framework (DRF)** – for building RESTful APIs  
+- ⚡ **Daphne** – for real-time WebSocket communication  
+- 🗃️ **SQLite3** – used as development database  
+- 🐘 **PostgreSQL** – production database on Render  
+- 🚨 **Sentry** – for error tracking and performance monitoring  
+- ☁️ **Deployed on Render**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 💻 Frontend
+- ⚛️ **React (TypeScript)** – user interface  
+- ⚡ **Vite** – modern frontend tooling  
+- 🚨 **Sentry SDK** – for frontend error tracking  
+- 🌐 **Deployed on GitHub Pages**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🌟 Core Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+✅ Real-time chat with landlords 💬  
+✅ “Last seen” and typing indicator like WhatsApp 👀✍️  
+✅ Property filters (by category, price, location) 🏙️  
+✅ Search functionality 🔍  
+✅ Add to favourites ❤️  
+✅ Book property instantly 🏡  
+✅ Add your own property 🏠  
+✅ Sign in / Sign up / Logout 🔐  
+✅ Integrated Sentry error monitoring 🚨  
+✅ Responsive, mobile-friendly UI 📱💻  
+
+---
+
+## 🏗️ System Architecture
+
+- **Frontend** communicates via REST API & WebSockets  
+- **Backend** handles authentication, data logic, and chat events  
+- **Sentry** monitors both frontend and backend in real-time  
+
+---
+
+### 🌐 View Love Demo
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+https://ebikemeese.github.io/DjangoBnb
